@@ -7,7 +7,6 @@ import {
   lazy,
   Suspense,
   useDeferredValue,
-  startTransition,
 } from "react";
 import {
   Box,
@@ -33,7 +32,6 @@ import default_female_profile from "../../assets/images/default_female_profile.p
 import useAddData from "../API & Data/useAddData";
 
 import { SmallAddIcon, SmallCloseIcon } from "@chakra-ui/icons";
-import axios from "axios";
 
 // Lazy loading
 const ExtraTVData = lazy(() =>
@@ -238,9 +236,6 @@ export const PersonData = memo(
     // Additional data fetching
     const data = useDeferredValue(useAddData(id, "person"));
 
-    const [profession, setProfession] = useState([]);
-    const prof = useDeferredValue(profession);
-
     // Manage data overflow
     const [expand, isExpand] = useState(false);
 
@@ -252,38 +247,6 @@ export const PersonData = memo(
         setOverviewHeight(overviewRef.current.scrollHeight);
       }
     }, [data.biography]);
-
-    useLayoutEffect(() => {
-      if (data.imdb_id !== undefined) {
-        axios({
-          method: "GET",
-          url: `https://moviesdatabase.p.rapidapi.com/actors/${data.imdb_id}`,
-          headers: {
-            "X-RapidAPI-Key":
-              "c4f416fc44msh986f22e972fb6d6p1a0aa6jsn882b516ab40c",
-            "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com",
-          },
-        })
-          .then(res => {
-            const profession = res.data.results.primaryProfession
-              .split(",")
-              .map(profession =>
-                profession.includes("_")
-                  ? profession
-                      .split("_")
-                      .map(
-                        form_prf =>
-                          form_prf.charAt(0).toUpperCase() + form_prf.slice(1)
-                      )
-                      .join(" ")
-                  : profession.charAt(0).toUpperCase() + profession.slice(1)
-              );
-
-            startTransition(() => setProfession(profession));
-          })
-          .catch(err => console.log(err));
-      }
-    }, [data.imdb_id]);
 
     return (
       <Grid
@@ -418,22 +381,6 @@ export const PersonData = memo(
             </Text>{" "}
             {works}
           </Box>
-          {data.imdb_id !== undefined && (
-            <Flex my=".75rem" gap="1rem">
-              {prof.map(prof => (
-                <Badge
-                  fontSize={"lg"}
-                  variant={"solid"}
-                  bgColor={"cyan.600"}
-                  color={colorMode === "dark" ? "whiteAlpha.900" : null}
-                  borderRadius={"100vw"}
-                  px=".75rem"
-                  py=".25rem">
-                  {prof}
-                </Badge>
-              ))}
-            </Flex>
-          )}
           {data.biography !== undefined && (
             <>
               <Collapse

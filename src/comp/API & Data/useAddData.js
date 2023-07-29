@@ -1,6 +1,7 @@
-import { startTransition, useLayoutEffect, useState } from "react";
+import { startTransition, useLayoutEffect } from "react";
 import axios from "axios";
 import { countries } from "./countries";
+import { useImmer } from "use-immer";
 
 const monthList = [
   "January",
@@ -37,7 +38,7 @@ const convertDate = date => {
 };
 
 export default function useAddData(id, type) {
-  const [data, setData] = useState({});
+  const [data, setData] = useImmer({});
 
   useLayoutEffect(() => {
     axios
@@ -279,8 +280,6 @@ export default function useAddData(id, type) {
                       ? res.data.biography
                       : undefined
                     : undefined,
-                imdb_id:
-                  res.data.imdb_id !== null ? res.data.imdb_id : undefined,
               };
 
               startTransition(() => setData(receivedPersonData));
