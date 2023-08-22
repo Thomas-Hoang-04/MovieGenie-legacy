@@ -149,7 +149,8 @@ export const ExtraTVData = memo(({ id }) => {
         {data.episodes !== undefined &&
           data.seasons !== undefined &&
           data.status !== "Ended" &&
-          (data.status === "Canceled" || data.status === "Cancelled") &&
+          data.status !== "Canceled" &&
+          data.status !== "Cancelled" &&
           data.episodes.season === data.seasons - 1 && (
             <Badge
               fontSize={"lg"}
