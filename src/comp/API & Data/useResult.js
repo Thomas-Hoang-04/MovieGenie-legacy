@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useImmer } from "use-immer";
-import "dotenv/config";
 
 export default function useResult(type, query, page, year = undefined) {
   const [data, setData] = useImmer([]);
@@ -47,7 +46,8 @@ export default function useResult(type, query, page, year = undefined) {
               },
               headers: {
                 accept: "application/json",
-                Authorization: process.env.REACT_APP_AUTH_TOKEN,
+                Authorization:
+                  "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYzEzODY1MWM4M2I5ZjAyYjBjM2I5MDVhZWNmMjE4OCIsInN1YiI6IjY0NmUwY2NlMzNhMzc2MDE3NWQ0ZTEyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RPu_qlwS0cBOYK3e_kcJR2AOvDa6rN5rZ8mM6drK-wY",
               },
             })
             .then(res => {

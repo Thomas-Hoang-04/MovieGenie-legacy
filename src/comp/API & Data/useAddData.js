@@ -2,7 +2,6 @@ import { startTransition, useLayoutEffect } from "react";
 import axios from "axios";
 import { countries } from "./countries";
 import { useImmer } from "use-immer";
-import "dotenv/config";
 
 const monthList = [
   "January",
@@ -53,7 +52,8 @@ export default function useAddData(id, type) {
           },
           headers: {
             accept: "application/json",
-            Authorization: process.env.REACT_APP_AUTH_TOKEN,
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYzEzODY1MWM4M2I5ZjAyYjBjM2I5MDVhZWNmMjE4OCIsInN1YiI6IjY0NmUwY2NlMzNhMzc2MDE3NWQ0ZTEyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RPu_qlwS0cBOYK3e_kcJR2AOvDa6rN5rZ8mM6drK-wY",
           },
         }),
         type !== "person" &&
@@ -65,7 +65,8 @@ export default function useAddData(id, type) {
             },
             headers: {
               accept: "application/json",
-              Authorization: process.env.REACT_APP_AUTH_TOKEN,
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYzEzODY1MWM4M2I5ZjAyYjBjM2I5MDVhZWNmMjE4OCIsInN1YiI6IjY0NmUwY2NlMzNhMzc2MDE3NWQ0ZTEyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RPu_qlwS0cBOYK3e_kcJR2AOvDa6rN5rZ8mM6drK-wY",
             },
           }),
       ])
