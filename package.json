@@ -1,7 +1,7 @@
 {
   "name": "intersection-api",
   "version": "2.0.0",
-  "homepage": "https://intersection-api.vercel.app",
+  "homepage": "https://intersection-observer-api.vercel.app",
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^2.0.19",
